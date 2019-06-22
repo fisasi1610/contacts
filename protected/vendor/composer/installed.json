@@ -1,0 +1,1620 @@
+[
+    {
+        "name": "npm-asset/bootstrap",
+        "version": "4.2.1",
+        "version_normalized": "4.2.1.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/bootstrap/-/bootstrap-4.2.1.tgz",
+            "reference": null,
+            "shasum": "8f8bdca024dbf0e8644da32e918c8a03a90a5757"
+        },
+        "time": "2018-12-21T18:58:03+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/twbs/bootstrap/issues"
+            },
+            "npm-asset-main": "dist/js/bootstrap",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/twbs/bootstrap.git"
+            },
+            "npm-asset-scripts": {
+                "start": "npm-run-all --parallel watch docs-serve",
+                "blc": "blc --exclude-external --filter-level 3 --follow --get --ordered --recursive --host-requests 4 --input http://localhost:3000/",
+                "http-server": "http-server --silent -p 3000",
+                "bundlesize": "bundlesize",
+                "check-broken-links": "npm-run-all --parallel --race \"http-server -- _gh_pages/\" blc",
+                "css": "npm-run-all css-compile css-prefix css-minify css-copy",
+                "css-copy": "cross-env-shell shx mkdir -p site/docs/$npm_package_version_short/dist/ && cross-env-shell shx cp -r dist/css/ site/docs/$npm_package_version_short/dist/",
+                "css-main": "npm-run-all css-lint css-compile-main css-prefix-main css-minify-main css-copy",
+                "css-docs": "npm-run-all css-compile-docs css-prefix-docs css-minify-docs",
+                "css-compile": "npm-run-all --parallel css-compile-*",
+                "css-compile-main": "node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap.scss dist/css/bootstrap.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-grid.scss dist/css/bootstrap-grid.css && node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 scss/bootstrap-reboot.scss dist/css/bootstrap-reboot.css && npm run css-copy",
+                "css-compile-docs": "cross-env-shell node-sass --output-style expanded --source-map true --source-map-contents true --precision 6 site/docs/$npm_package_version_short/assets/scss/docs.scss site/docs/$npm_package_version_short/assets/css/docs.min.css",
+                "css-lint": "npm-run-all --parallel css-lint-*",
+                "css-lint-main": "stylelint --syntax scss \"scss/**/*.scss\"",
+                "css-lint-docs": "stylelint --syntax scss \"site/docs/**/assets/scss/*.scss\" && stylelint \"site/docs/**/*.css\"",
+                "css-lint-vars": "fusv scss/ site/docs/",
+                "css-minify": "npm-run-all --parallel css-minify-*",
+                "css-minify-main": "cleancss --level 1 --format breaksWith=lf --source-map --source-map-inline-sources --output dist/css/bootstrap.min.css dist/css/bootstrap.css && cleancss --level 1 --format breaksWith=lf --source-map --source-map-inline-sources --output dist/css/bootstrap-grid.min.css dist/css/bootstrap-grid.css && cleancss --level 1 --format breaksWith=lf --source-map --source-map-inline-sources --output dist/css/bootstrap-reboot.min.css dist/css/bootstrap-reboot.css",
+                "css-minify-docs": "cross-env-shell cleancss --level 1 --format breaksWith=lf --source-map --source-map-inline-sources --output site/docs/$npm_package_version_short/assets/css/docs.min.css site/docs/$npm_package_version_short/assets/css/docs.min.css",
+                "css-prefix": "npm-run-all --parallel css-prefix-*",
+                "css-prefix-main": "postcss --config build/postcss.config.js --replace \"dist/css/*.css\" \"!dist/css/*.min.css\"",
+                "css-prefix-docs": "postcss --config build/postcss.config.js --replace \"site/docs/**/*.css\" \"site/docs/**/*.css\"",
+                "js": "npm-run-all js-compile js-minify js-copy",
+                "js-copy": "cross-env-shell shx mkdir -p site/docs/$npm_package_version_short/dist/ && cross-env-shell shx cp -r dist/js/ site/docs/$npm_package_version_short/dist/",
+                "js-main": "npm-run-all js-lint js-compile-main js-minify-main",
+                "js-docs": "npm-run-all js-lint-docs js-minify-docs",
+                "js-compile": "npm-run-all --parallel js-compile-* --sequential js-copy",
+                "js-compile-standalone": "rollup --environment BUNDLE:false --config build/rollup.config.js --sourcemap",
+                "js-compile-bundle": "rollup --environment BUNDLE:true --config build/rollup.config.js --sourcemap",
+                "js-compile-plugins": "node build/build-plugins.js",
+                "js-compile-plugins-coverage": "cross-env NODE_ENV=test node build/build-plugins.js",
+                "js-lint": "npm-run-all --parallel js-lint-*",
+                "js-lint-main": "eslint js/src js/tests build/",
+                "js-lint-docs": "eslint site/",
+                "js-minify": "npm-run-all --parallel js-minify-main js-minify-docs",
+                "js-minify-main": "npm-run-all js-minify-standalone js-minify-bundle",
+                "js-minify-standalone": "uglifyjs --compress typeofs=false --mangle --comments \"/^!/\" --source-map \"content=dist/js/bootstrap.js.map,includeSources,url=bootstrap.min.js.map\" --output dist/js/bootstrap.min.js dist/js/bootstrap.js",
+                "js-minify-bundle": "uglifyjs --compress typeofs=false --mangle --comments \"/^!/\" --source-map \"content=dist/js/bootstrap.bundle.js.map,includeSources,url=bootstrap.bundle.min.js.map\" --output dist/js/bootstrap.bundle.min.js dist/js/bootstrap.bundle.js",
+                "js-minify-docs": "cross-env-shell uglifyjs --mangle --comments \\\"/^!/\\\" --output site/docs/$npm_package_version_short/assets/js/docs.min.js site/docs/$npm_package_version_short/assets/js/vendor/anchor.min.js site/docs/$npm_package_version_short/assets/js/vendor/clipboard.min.js site/docs/$npm_package_version_short/assets/js/vendor/bs-custom-file-input.min.js \"site/docs/$npm_package_version_short/assets/js/src/*.js\"",
+                "js-test": "npm-run-all js-test-karma* js-test-integration",
+                "js-test-karma": "karma start js/tests/karma.conf.js",
+                "js-test-karma-old": "cross-env USE_OLD_JQUERY=true npm run js-test-karma",
+                "js-test-karma-bundle": "cross-env BUNDLE=true npm run js-test-karma",
+                "js-test-karma-bundle-old": "cross-env BUNDLE=true USE_OLD_JQUERY=true npm run js-test-karma",
+                "js-test-integration": "rollup --config js/tests/integration/rollup.bundle.js",
+                "js-test-cloud": "cross-env BROWSER=true npm run js-test-karma",
+                "lint": "npm-run-all js-lint css-lint",
+                "coveralls": "shx cat js/coverage/lcov.info | coveralls",
+                "docs": "npm-run-all css-docs js-docs docs-compile docs-lint",
+                "docs-compile": "bundle exec jekyll build",
+                "docs-production": "cross-env JEKYLL_ENV=production npm run docs-compile",
+                "docs-lint": "node build/vnu-jar.js",
+                "docs-serve": "bundle exec jekyll serve",
+                "docs-serve-only": "npm run docs-serve -- --skip-initial-build --no-watch",
+                "update-deps": "ncu -a -x jquery -x bundlesize && npm update && bundle update && cross-env-shell echo Manually update \\\"site/docs/$npm_package_version_short/assets/js/vendor/\\\"",
+                "release": "npm run dist && npm run release-sri && npm run release-zip && npm run docs-production",
+                "release-sri": "node build/generate-sri.js",
+                "release-version": "node build/change-version.js",
+                "release-zip": "cross-env-shell \"shx rm -rf bootstrap-$npm_package_version-dist && shx cp -r dist/ bootstrap-$npm_package_version-dist && zip -r9 bootstrap-$npm_package_version-dist.zip bootstrap-$npm_package_version-dist && shx rm -rf bootstrap-$npm_package_version-dist\"",
+                "dist": "npm-run-all --parallel css js",
+                "test": "npm-run-all lint dist js-test docs-compile docs-lint bundlesize",
+                "watch": "npm-run-all --parallel watch-*",
+                "watch-css-main": "nodemon --watch scss/ --ext scss --exec \"npm run css-main\"",
+                "watch-css-docs": "nodemon --watch \"site/docs/**/assets/scss/\" --ext scss --exec \"npm run css-docs\"",
+                "watch-js-main": "nodemon --watch js/src/ --ext js --exec \"npm run js-compile\"",
+                "watch-js-docs": "nodemon --watch \"site/docs/**/assets/js/src/\" --ext js --exec \"npm run js-docs\""
+            },
+            "npm-asset-engines": {
+                "node": ">=6"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "The Bootstrap Authors",
+                "url": "https://github.com/twbs/bootstrap/graphs/contributors"
+            },
+            {
+                "name": "Twitter, Inc."
+            }
+        ],
+        "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+        "homepage": "https://getbootstrap.com/",
+        "keywords": [
+            "css",
+            "framework",
+            "front-end",
+            "mobile-first",
+            "responsive",
+            "sass",
+            "web"
+        ]
+    },
+    {
+        "name": "npm-asset/pace-js",
+        "version": "1.0.2",
+        "version_normalized": "1.0.2.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/pace-js/-/pace-js-1.0.2.tgz",
+            "reference": null,
+            "shasum": "673a717f833ccb4f4315531b75ee4788376600f7"
+        },
+        "time": "2016-07-21T02:14:06+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/HubSpot/pace/issues"
+            },
+            "npm-asset-main": "pace.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git://github.com/HubSpot/pace.git"
+            },
+            "npm-asset-scripts": []
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "description": "Automatic page load progress bar",
+        "homepage": "https://github.com/HubSpot/pace#readme"
+    },
+    {
+        "name": "npm-asset/perfect-scrollbar",
+        "version": "1.4.0",
+        "version_normalized": "1.4.0.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/perfect-scrollbar/-/perfect-scrollbar-1.4.0.tgz",
+            "reference": null,
+            "shasum": "5d014ef9775e1f43058a1dbae9ed1daf0e7091f1"
+        },
+        "time": "2018-06-07T05:01:12+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/utatti/perfect-scrollbar/issues"
+            },
+            "npm-asset-files": [
+                "css",
+                "dist",
+                "src",
+                "types"
+            ],
+            "npm-asset-main": "dist/perfect-scrollbar.common.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/utatti/perfect-scrollbar.git"
+            },
+            "npm-asset-scripts": {
+                "test": "npm run format:lint && npm run build",
+                "build": "npm run clean && node build",
+                "clean": "rm -rf dist",
+                "watch": "npm run build && SHELL=/bin/bash chokidar 'src/**/*.js' -c 'npm run format && npm run build'",
+                "format": "prettier --write --single-quote --trailing-comma es5 'src/**/*.js'",
+                "format:lint": "prettier -l --single-quote --trailing-comma es5 'src/**/*.js'",
+                "release": "./release"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Hyunje Jun",
+                "email": "me@noraesae.net"
+            }
+        ],
+        "description": "Minimalistic but perfect custom scrollbar plugin",
+        "homepage": "https://github.com/utatti/perfect-scrollbar#readme",
+        "keywords": [
+            "frontend",
+            "scroll",
+            "scrollbar"
+        ]
+    },
+    {
+        "name": "npm-asset/bootstrap-table",
+        "version": "1.12.1",
+        "version_normalized": "1.12.1.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/bootstrap-table/-/bootstrap-table-1.12.1.tgz",
+            "reference": null,
+            "shasum": "c9c3973067842a937c05d8639ecccb02abd6ba65"
+        },
+        "time": "2018-03-12T09:55:19+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/wenzhixin/bootstrap-table/issues"
+            },
+            "npm-asset-main": "./dist/bootstrap-table.js",
+            "npm-asset-directories": {
+                "doc": "docs"
+            },
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/wenzhixin/bootstrap-table.git"
+            },
+            "npm-asset-scripts": {
+                "grunt": "grunt",
+                "postinstall": "opencollective postinstall || exit 0"
+            },
+            "npm-asset-config": {
+                "commitizen": {
+                    "path": "./node_modules/cz-conventional-changelog"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "wenzhixin",
+                "email": "wenzhixin2010@gmail.com",
+                "url": "http://wenzhixin.net.cn/"
+            }
+        ],
+        "description": "An extended Bootstrap table with radio, checkbox, sort, pagination, and other added features. (supports twitter bootstrap v2 and v3).",
+        "homepage": "https://github.com/wenzhixin/bootstrap-table",
+        "keywords": [
+            "bootstrap",
+            "checkbox",
+            "editable",
+            "pagination",
+            "radio",
+            "sort",
+            "table"
+        ]
+    },
+    {
+        "name": "npm-asset/jquery",
+        "version": "3.3.1",
+        "version_normalized": "3.3.1.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/jquery/-/jquery-3.3.1.tgz",
+            "reference": null,
+            "shasum": "958ce29e81c9790f31be7792df5d4d95fc57fbca"
+        },
+        "time": "2018-01-20T17:27:11+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/jquery/jquery/issues"
+            },
+            "npm-asset-main": "dist/jquery.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/jquery/jquery.git"
+            },
+            "npm-asset-scripts": {
+                "build": "npm install && grunt",
+                "start": "grunt watch",
+                "test:browserless": "grunt && grunt test:slow",
+                "test:browser": "grunt && grunt karma:main",
+                "test": "grunt && grunt test:slow && grunt karma:main",
+                "jenkins": "npm run test:browserless",
+                "precommit": "grunt lint:newer qunit_fixture",
+                "commitmsg": "node node_modules/commitplease"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "JS Foundation and other contributors",
+                "url": "https://github.com/jquery/jquery/blob/3.3.1/AUTHORS.txt"
+            }
+        ],
+        "description": "JavaScript library for DOM operations",
+        "homepage": "https://jquery.com",
+        "keywords": [
+            "browser",
+            "javascript",
+            "jquery",
+            "library"
+        ]
+    },
+    {
+        "name": "npm-asset/jquery-validation",
+        "version": "1.19.0",
+        "version_normalized": "1.19.0.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/jquery-validation/-/jquery-validation-1.19.0.tgz",
+            "reference": null,
+            "shasum": "0fedf0c0483a030c4fff072398898ac18cfd6e40"
+        },
+        "require": {
+            "npm-asset/jquery": ">=1.7.0,<2.0.0|>=2.0.0,<3.0.0|>=3.1.0,<4.0.0"
+        },
+        "time": "2018-11-28T18:36:49+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/jquery-validation/jquery-validation/issues"
+            },
+            "npm-asset-main": "dist/jquery.validate.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git://github.com/jquery-validation/jquery-validation.git"
+            },
+            "npm-asset-scripts": {
+                "test": "grunt",
+                "prepublish": "grunt"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jörn Zaefferer",
+                "email": "joern.zaefferer@gmail.com",
+                "url": "http://bassistance.de"
+            }
+        ],
+        "description": "Client-side form validation made easy",
+        "homepage": "https://jqueryvalidation.org/",
+        "keywords": [
+            "forms",
+            "jquery",
+            "jquery-plugin",
+            "validate",
+            "validation"
+        ]
+    },
+    {
+        "name": "npm-asset/sweetalert2",
+        "version": "7.33.1",
+        "version_normalized": "7.33.1.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/sweetalert2/-/sweetalert2-7.33.1.tgz",
+            "reference": null,
+            "shasum": "7e3534d2c2962f875f419cfea5d75ee526d65cd4"
+        },
+        "time": "2018-12-22T19:23:33+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/sweetalert2/sweetalert2/issues"
+            },
+            "npm-asset-main": "dist/sweetalert2.all.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/sweetalert2/sweetalert2.git"
+            },
+            "npm-asset-scripts": {
+                "start": "gulp develop --continue-on-error --skip-minification --skip-standalone",
+                "fix:lint": "eslint --fix .",
+                "test": "npm run build && npm run check",
+                "build": "gulp build",
+                "check": "npm run check:lint && npm run check:require-in-node && npm run check:qunit && npm run check:qunit:minified && npm run check:ts",
+                "check:sauce": "npm run check:qunit:sauce && npm run check:qunit:minified:sauce",
+                "check:lint": "gulp lint",
+                "check:require-in-node": "node test/require-in-node",
+                "check:qunit": "karma start karma.conf.js --single-run",
+                "check:qunit:minified": "karma start karma.conf.js --single-run --minified",
+                "check:qunit:sauce": "karma start karma.conf.js --single-run --sauce",
+                "check:qunit:minified:sauce": "karma start karma.conf.js --single-run --minified --sauce",
+                "check:ts": "tsc --lib dom,es6 sweetalert2.d.ts",
+                "check:third-party": "npm run check:unpkg && npm run check:jsdelivr && npm run check:wappalyzer",
+                "check:wappalyzer": "curl 'https://api.wappalyzer.com/lookup-basic/v1/?url=https%3A%2F%2Fsweetalert2.github.io' 2>&1 | grep --quiet 'SweetAlert2'",
+                "check:unpkg": "curl --location 'https://unpkg.com/sweetalert2' 2>&1 | grep --quiet 'window.Swal'",
+                "check:jsdelivr": "curl --location 'https://cdn.jsdelivr.net/npm/sweetalert2' 2>&1 | grep --quiet 'window.Swal'"
+            },
+            "npm-asset-engines": {
+                "node": ">=0.10.0"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Limon Monte",
+                "email": "limon.monte@gmail.com",
+                "url": "https://limonte.github.io"
+            },
+            {
+                "name": "Matthew Francis Brunetti",
+                "email": "zenflow87@gmail.com",
+                "url": "https://github.com/zenflow"
+            },
+            {
+                "name": "Morgan Touverey-Quilling",
+                "email": "mtouverey@alembic-dev.com",
+                "url": "https://github.com/toverux"
+            },
+            {
+                "name": "Joseph Schultz",
+                "url": "https://github.com/acupajoe"
+            },
+            {
+                "name": "Sam Turrell",
+                "email": "sam@samturrell.co.uk",
+                "url": "https://github.com/samturrell"
+            },
+            {
+                "name": "Johan Fagerberg",
+                "url": "https://github.com/birjolaxew"
+            },
+            {
+                "name": "Giuseppe Verni",
+                "url": "https://github.com/gverni"
+            }
+        ],
+        "description": "A beautiful, responsive, customizable and accessible (WAI-ARIA) replacement for JavaScript's popup boxes, supported fork of sweetalert",
+        "homepage": "https://sweetalert2.github.io/",
+        "keywords": [
+            "alert",
+            "confirm",
+            "prompt",
+            "sweetalert",
+            "sweetalert2"
+        ]
+    },
+    {
+        "name": "npm-asset/jquery-mousewheel",
+        "version": "3.1.13",
+        "version_normalized": "3.1.13.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz",
+            "reference": null,
+            "shasum": "06f0335f16e353a695e7206bf50503cb523a6ee5"
+        },
+        "time": "2015-07-15T18:05:23+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/jquery/jquery-mousewheel/issues"
+            },
+            "npm-asset-files": [
+                "ChangeLog.md",
+                "jquery.mousewheel.js",
+                "README.md",
+                "LICENSE.txt"
+            ],
+            "npm-asset-main": "./jquery.mousewheel.js",
+            "npm-asset-directories": {
+                "test": "test"
+            },
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "https://github.com/jquery/jquery-mousewheel.git"
+            },
+            "npm-asset-scripts": []
+        },
+        "installation-source": "dist",
+        "authors": [
+            {
+                "name": "jQuery Foundation and other contributors",
+                "url": "https://github.com/jquery/jquery-mousewheel/blob/master/AUTHORS.txt"
+            }
+        ],
+        "description": "A jQuery plugin that adds cross-browser mouse wheel support.",
+        "homepage": "https://github.com/jquery/jquery-mousewheel",
+        "keywords": [
+            "browser",
+            "event",
+            "jquery",
+            "jquery-plugin",
+            "mouse",
+            "mousewheel",
+            "wheel"
+        ]
+    },
+    {
+        "name": "npm-asset/almond",
+        "version": "0.3.3",
+        "version_normalized": "0.3.3.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/almond/-/almond-0.3.3.tgz",
+            "reference": null,
+            "shasum": "a0e7c95ac7624d6417b4494b1e68bff693168a20"
+        },
+        "time": "2016-09-01T05:08:15+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/requirejs/almond/issues"
+            },
+            "npm-asset-main": "almond.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git://github.com/requirejs/almond.git"
+            },
+            "npm-asset-scripts": [],
+            "npm-asset-engines": {
+                "node": ">=0.4.0"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "James Burke",
+                "email": "jrburke@gmail.com",
+                "url": "http://github.com/jrburke"
+            }
+        ],
+        "description": "A minimal AMD API implementation for use in optimized browser builds.",
+        "homepage": "http://github.com/requirejs/almond"
+    },
+    {
+        "name": "npm-asset/select2",
+        "version": "4.0.6-RC.1",
+        "version_normalized": "4.0.6.0-RC1",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/select2/-/select2-4.0.6-rc.1.tgz",
+            "reference": null,
+            "shasum": "aa6c3038a7f0f2e91ffade38f0a21c15e1813276"
+        },
+        "require": {
+            "npm-asset/almond": "~0.3.1",
+            "npm-asset/jquery-mousewheel": "~3.1.13"
+        },
+        "time": "2017-11-22T04:58:21+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/select2/select2/issues"
+            },
+            "npm-asset-files": [
+                "src",
+                "dist"
+            ],
+            "npm-asset-main": "dist/js/select2.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git://github.com/select2/select2.git"
+            },
+            "npm-asset-scripts": []
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Kevin Brown",
+                "url": "https://github.com/kevin-brown"
+            },
+            {
+                "name": "Igor Vaynberg",
+                "url": "https://github.com/ivaynberg"
+            },
+            {
+                "name": "Alex Weissman",
+                "url": "https://github.com/alexweissman"
+            }
+        ],
+        "description": "Select2 is a jQuery based replacement for select boxes. It supports searching, remote data sets, and infinite scrolling of results.",
+        "homepage": "https://select2.org",
+        "keywords": [
+            "autocomplete",
+            "dropdown",
+            "multiselect",
+            "select",
+            "tag",
+            "tagging",
+            "typeahead"
+        ]
+    },
+    {
+        "name": "npm-asset/nestable2",
+        "version": "1.6.0",
+        "version_normalized": "1.6.0.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/nestable2/-/nestable2-1.6.0.tgz",
+            "reference": null,
+            "shasum": "83ffe2483cca1c63771ec0012693b5155bfdd115"
+        },
+        "require": {
+            "npm-asset/jquery": ">=1.7.2"
+        },
+        "time": "2017-10-22T01:58:06+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/RamonSmit/Nestable2/issues"
+            },
+            "npm-asset-main": "jquery.nestable.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git://github.com/RamonSmit/Nestable2.git"
+            },
+            "npm-asset-scripts": {
+                "test": "gulp test"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "David Bushell",
+                "email": "hi@dbushell.com",
+                "url": "https://github.com/dbushell"
+            },
+            {
+                "name": "Ramon Smit",
+                "email": "ramon@daltcore.com"
+            },
+            {
+                "name": "Martin Zeman",
+                "email": "me@zemistr.eu"
+            },
+            {
+                "name": "Marek Skiba",
+                "email": "skibamarek@gmail.com"
+            }
+        ],
+        "description": "Drag & drop hierarchical list with mouse and touch compatibility",
+        "homepage": "https://github.com/RamonSmit/Nestable2#readme",
+        "keywords": [
+            "drag",
+            "drop",
+            "jquery",
+            "list",
+            "nestable",
+            "nestable2",
+            "sortable",
+            "tree"
+        ]
+    },
+    {
+        "name": "npm-asset/is-buffer",
+        "version": "1.1.6",
+        "version_normalized": "1.1.6.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/is-buffer/-/is-buffer-1.1.6.tgz",
+            "reference": null,
+            "shasum": "efaa2ea9daa0d7ab2ea13a97b2b8ad51fefbe8be"
+        },
+        "time": "2017-10-25T21:36:28+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/feross/is-buffer/issues"
+            },
+            "npm-asset-main": "index.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git://github.com/feross/is-buffer.git"
+            },
+            "npm-asset-scripts": {
+                "test": "standard && npm run test-node && npm run test-browser",
+                "test-browser": "zuul -- test/*.js",
+                "test-browser-local": "zuul --local -- test/*.js",
+                "test-node": "tape test/*.js"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Feross Aboukhadijeh",
+                "email": "feross@feross.org",
+                "url": "http://feross.org/"
+            }
+        ],
+        "description": "Determine if an object is a Buffer",
+        "homepage": "https://github.com/feross/is-buffer#readme",
+        "keywords": [
+            "arraybuffer",
+            "browser",
+            "browser buffer",
+            "browserify",
+            "buffer",
+            "buffers",
+            "core buffer",
+            "dataview",
+            "float32array",
+            "float64array",
+            "int16array",
+            "int32array",
+            "type",
+            "typed array",
+            "uint32array"
+        ]
+    },
+    {
+        "name": "npm-asset/ms",
+        "version": "2.1.2",
+        "version_normalized": "2.1.2.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz",
+            "reference": null,
+            "shasum": "d09d1f357b443f493382a8eb3ccd183872ae6009"
+        },
+        "time": "2019-06-06T17:31:55+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/zeit/ms/issues"
+            },
+            "npm-asset-main": "./index",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/zeit/ms.git"
+            },
+            "npm-asset-scripts": {
+                "precommit": "lint-staged",
+                "lint": "eslint lib/* bin/*",
+                "test": "mocha tests.js"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "description": "Tiny millisecond conversion utility",
+        "homepage": "https://github.com/zeit/ms#readme"
+    },
+    {
+        "name": "npm-asset/debug",
+        "version": "3.2.6",
+        "version_normalized": "3.2.6.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/debug/-/debug-3.2.6.tgz",
+            "reference": null,
+            "shasum": "e83d17de16d8a7efb7717edbe5fb10135eee629b"
+        },
+        "require": {
+            "npm-asset/ms": ">=2.1.1,<3.0.0"
+        },
+        "time": "2018-10-10T06:48:00+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/visionmedia/debug/issues"
+            },
+            "npm-asset-main": "./src/index.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git://github.com/visionmedia/debug.git"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "TJ Holowaychuk",
+                "email": "tj@vision-media.ca"
+            },
+            {
+                "name": "Nathan Rajlich",
+                "email": "nathan@tootallnate.net",
+                "url": "http://n8.io"
+            },
+            {
+                "name": "Andrew Rhyne",
+                "email": "rhyneandrew@gmail.com"
+            }
+        ],
+        "description": "small debugging utility",
+        "homepage": "https://github.com/visionmedia/debug#readme",
+        "keywords": [
+            "debug",
+            "debugger",
+            "log"
+        ]
+    },
+    {
+        "name": "npm-asset/follow-redirects",
+        "version": "1.7.0",
+        "version_normalized": "1.7.0.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.7.0.tgz",
+            "reference": null,
+            "shasum": "489ebc198dc0e7f64167bd23b03c4c19b5784c76"
+        },
+        "require": {
+            "npm-asset/debug": ">=3.2.6,<4.0.0"
+        },
+        "time": "2019-02-13T21:40:42+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/follow-redirects/follow-redirects/issues"
+            },
+            "npm-asset-main": "index.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+ssh://git@github.com/follow-redirects/follow-redirects.git"
+            },
+            "npm-asset-scripts": {
+                "test": "npm run lint && npm run mocha",
+                "lint": "eslint *.js test",
+                "mocha": "nyc mocha"
+            },
+            "npm-asset-engines": {
+                "node": ">=4.0"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ruben Verborgh",
+                "email": "ruben@verborgh.org",
+                "url": "https://ruben.verborgh.org/"
+            },
+            {
+                "name": "Olivier Lalonde",
+                "email": "olalonde@gmail.com",
+                "url": "http://www.syskall.com"
+            },
+            {
+                "name": "James Talmage",
+                "email": "james@talmage.io"
+            }
+        ],
+        "description": "HTTP and HTTPS modules that follow redirects.",
+        "homepage": "https://github.com/follow-redirects/follow-redirects",
+        "keywords": [
+            "client",
+            "http",
+            "https",
+            "location",
+            "redirect",
+            "url",
+            "utility"
+        ]
+    },
+    {
+        "name": "npm-asset/axios",
+        "version": "0.18.0",
+        "version_normalized": "0.18.0.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/axios/-/axios-0.18.0.tgz",
+            "reference": null,
+            "shasum": "32d53e4851efdc0a11993b6cd000789d70c05102"
+        },
+        "require": {
+            "npm-asset/follow-redirects": ">=1.3.0,<2.0.0",
+            "npm-asset/is-buffer": ">=1.1.5,<2.0.0"
+        },
+        "time": "2018-02-19T23:28:54+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/axios/axios/issues"
+            },
+            "npm-asset-main": "index.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/axios/axios.git"
+            },
+            "npm-asset-scripts": {
+                "test": "grunt test && bundlesize",
+                "start": "node ./sandbox/server.js",
+                "build": "NODE_ENV=production grunt build",
+                "preversion": "npm test",
+                "version": "npm run build && grunt version && git add -A dist && git add CHANGELOG.md bower.json package.json",
+                "postversion": "git push && git push --tags",
+                "examples": "node ./examples/server.js",
+                "coveralls": "cat coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Matt Zabriskie"
+            }
+        ],
+        "description": "Promise based HTTP client for the browser and node.js",
+        "homepage": "https://github.com/axios/axios",
+        "keywords": [
+            "ajax",
+            "http",
+            "node",
+            "promise",
+            "xhr"
+        ]
+    },
+    {
+        "name": "npm-asset/noty",
+        "version": "3.1.4",
+        "version_normalized": "3.1.4.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/noty/-/noty-3.1.4.tgz",
+            "reference": null,
+            "shasum": "f9eaac9df7883921b270ec6f2869e9aeedd8071b"
+        },
+        "time": "2017-12-13T20:40:07+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/needim/noty/issues"
+            },
+            "npm-asset-files": [
+                "lib",
+                "src",
+                "index.d.ts"
+            ],
+            "npm-asset-main": "lib/noty.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git://github.com/needim/noty.git"
+            },
+            "npm-asset-scripts": {
+                "build": "webpack --env dev && webpack --env build && grunt banner",
+                "dev": "webpack --progress --colors --watch --env dev",
+                "format": "prettier-standard 'src/**/*.js'",
+                "test": "npm run format && standard && grunt test",
+                "browserstack": "browserstack-runner",
+                "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
+                "serve-docs": "docsify start ./docs"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nedim Arabacı",
+                "url": "http://ned.im"
+            }
+        ],
+        "description": "Noty is a library that makes it easy to create alert - success - error - warning - information - confirmation messages as an alternative the standard alert dialog. Each notification is added to a queue. (Optional)",
+        "homepage": "http://ned.im/noty",
+        "keywords": [
+            "alert",
+            "confirmation",
+            "notification",
+            "noty"
+        ]
+    },
+    {
+        "name": "npm-asset/animate.css",
+        "version": "3.7.0",
+        "version_normalized": "3.7.0.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/animate.css/-/animate.css-3.7.0.tgz",
+            "reference": null,
+            "shasum": "5de25d1ee5fba11ba6a1e2c4fa568f512eb7d4da"
+        },
+        "time": "2018-07-28T16:05:48+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/daneden/animate.css/issues"
+            },
+            "npm-asset-main": "animate.css",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/daneden/animate.css.git"
+            },
+            "npm-asset-scripts": {
+                "gulp": "./node_modules/gulp/bin/gulp.js",
+                "start": "gulp",
+                "prettier": "prettier --write \"**/*.{js,json,md,css}\"",
+                "precommit": "lint-staged"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Daniel Eden"
+            }
+        ],
+        "description": "_Just-add-water CSS animation_",
+        "homepage": "http://daneden.me/animate"
+    },
+    {
+        "name": "npm-asset/jquery-contextmenu",
+        "version": "2.8.0",
+        "version_normalized": "2.8.0.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/jquery-contextmenu/-/jquery-contextmenu-2.8.0.tgz",
+            "reference": null,
+            "shasum": "cc25f60c0260c8e3e50650b8e29b8e0cfbbc3be7"
+        },
+        "time": "2019-01-16T16:17:09+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/swisnl/jQuery-contextMenu/issues"
+            },
+            "npm-asset-main": "dist/jquery.contextMenu.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git://github.com/swisnl/jQuery-contextMenu.git"
+            },
+            "npm-asset-scripts": {
+                "test": "npm run test-unit",
+                "test-unit": "./node_modules/karma/bin/karma start",
+                "test-sauce": "./node_modules/karma/bin/karma start karma-saucelabs.conf.js",
+                "test-accept": "wdio wdio.conf.js"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Björn Brala",
+                "url": "http://www.swis.nl"
+            },
+            {
+                "name": "Rodney Rehm",
+                "url": "http://rodneyrehm.de"
+            },
+            {
+                "name": "Addy Osmani",
+                "url": "https://github.com/addyosmani"
+            },
+            {
+                "name": "Christiaan Baartse",
+                "url": "https://github.com/christiaan"
+            }
+        ],
+        "description": "Management facility for context menus. Developed for a large number of triggering objects. HTML5 Polyfill",
+        "homepage": "http://swisnl.github.io/jQuery-contextMenu/",
+        "keywords": [
+            "context menu",
+            "context-menu",
+            "contextmenu",
+            "ecosystem:jquery",
+            "html5 context menu",
+            "html5 context-menu",
+            "html5 contextmenu",
+            "html5 menu",
+            "jquery-plugin",
+            "menu"
+        ]
+    },
+    {
+        "name": "npm-asset/popper.js",
+        "version": "1.14.6",
+        "version_normalized": "1.14.6.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/popper.js/-/popper.js-1.14.6.tgz",
+            "reference": null,
+            "shasum": "ab20dd4edf9288b8b3b6531c47c361107b60b4b0"
+        },
+        "time": "2018-11-28T14:43:21+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/FezVrasta/popper.js/issues"
+            },
+            "npm-asset-main": "dist/umd/popper.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/FezVrasta/popper.js.git"
+            },
+            "npm-asset-scripts": {
+                "prepare": "yarn build",
+                "postpublish": "nuget-publish && ./bower-publish.sh",
+                "prebuild": "yarn lint",
+                "pretest": "yarn lint",
+                "build": "node bundle.js && cp index.js.flow dist/umd/poppper.js.flow",
+                "lint": "eslint .",
+                "test": "popper-karma",
+                "posttest": "tsc --project tests/types/tsconfig.json",
+                "test:dev": "BROWSERS=Chrome NODE_ENV=development yarn test",
+                "coverage": "COVERAGE=true yarn test"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Federico Zivolo",
+                "email": "federico.zivolo@gmail.com"
+            },
+            {
+                "name": "Contributors",
+                "url": "https://github.com/FezVrasta/popper.js/graphs/contributors"
+            }
+        ],
+        "description": "A kickass library to manage your poppers",
+        "homepage": "https://popper.js.org/",
+        "keywords": [
+            "attached",
+            "component",
+            "drop",
+            "popover",
+            "popperjs",
+            "position",
+            "tooltip"
+        ]
+    },
+    {
+        "name": "yiisoft/yii",
+        "version": "1.1.21",
+        "version_normalized": "1.1.21.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/yiisoft/yii.git",
+            "reference": "733ac5856b0b72228346b5a6af10b0b9df18ad6c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/yiisoft/yii/zipball/733ac5856b0b72228346b5a6af10b0b9df18ad6c",
+            "reference": "733ac5856b0b72228346b5a6af10b0b9df18ad6c",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.1.0"
+        },
+        "require-dev": {
+            "phing/phing": "2.*",
+            "phpseclib/mcrypt_compat": "^1.0",
+            "phpunit/phpunit": "~4.8.34",
+            "phpunit/phpunit-selenium": "~1.4.0"
+        },
+        "suggest": {
+            "ext-mcrypt": "Required by encrypt and decrypt methods of CSecurityManager",
+            "phpseclib/mcrypt_compat": "To provide mcrypt polyfill when extension is unavailable"
+        },
+        "time": "2019-04-02T07:32:41+00:00",
+        "bin": [
+            "framework/yiic"
+        ],
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "framework/YiiBase.php",
+                "framework/yii.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Qiang Xue",
+                "email": "qiang.xue@gmail.com",
+                "homepage": "http://www.yiiframework.com/",
+                "role": "Founder and project lead"
+            },
+            {
+                "name": "Alexander Makarov",
+                "email": "sam@rmcreative.ru",
+                "homepage": "http://rmcreative.ru/",
+                "role": "Core framework development"
+            },
+            {
+                "name": "Maurizio Domba",
+                "homepage": "http://mdomba.info/",
+                "role": "Core framework development"
+            },
+            {
+                "name": "Carsten Brandt",
+                "email": "mail@cebe.cc",
+                "homepage": "http://cebe.cc/",
+                "role": "Core framework development"
+            },
+            {
+                "name": "Wei Zhuo",
+                "email": "weizhuo@gmail.com",
+                "role": "Project site maintenance and development"
+            },
+            {
+                "name": "Sebastián Thierer",
+                "email": "sebas@artfos.com",
+                "role": "Component development"
+            },
+            {
+                "name": "Jeffrey Winesett",
+                "email": "jefftulsa@gmail.com",
+                "role": "Documentation and marketing"
+            },
+            {
+                "name": "Timur Ruziev",
+                "email": "resurtm@gmail.com",
+                "homepage": "http://resurtm.com/",
+                "role": "Core framework development"
+            },
+            {
+                "name": "Paul Klimov",
+                "email": "klimov.paul@gmail.com",
+                "role": "Core framework development"
+            }
+        ],
+        "description": "Yii Web Programming Framework",
+        "homepage": "http://www.yiiframework.com/",
+        "keywords": [
+            "framework",
+            "yii"
+        ]
+    },
+    {
+        "name": "npm-asset/moment",
+        "version": "2.20.1",
+        "version_normalized": "2.20.1.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/moment/-/moment-2.20.1.tgz",
+            "reference": null,
+            "shasum": "d6eb1a46cbcc14a2b2f9434112c1ff8907f313fd"
+        },
+        "time": "2017-12-19T04:44:18+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/moment/moment/issues"
+            },
+            "npm-asset-main": "./moment.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/moment/moment.git"
+            },
+            "npm-asset-scripts": {
+                "typescript-test": "tsc --project typing-tests",
+                "test": "grunt test",
+                "coverage": "nyc npm test && nyc report",
+                "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+            },
+            "npm-asset-engines": {
+                "node": "*"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Iskren Ivov Chernev",
+                "email": "iskren.chernev@gmail.com",
+                "url": "https://github.com/ichernev"
+            },
+            {
+                "name": "Tim Wood",
+                "email": "washwithcare@gmail.com",
+                "url": "http://timwoodcreates.com/"
+            },
+            {
+                "name": "Rocky Meza",
+                "url": "http://rockymeza.com"
+            },
+            {
+                "name": "Matt Johnson",
+                "email": "mj1856@hotmail.com",
+                "url": "http://codeofmatt.com"
+            },
+            {
+                "name": "Isaac Cambron",
+                "email": "isaac@isaaccambron.com",
+                "url": "http://isaaccambron.com"
+            },
+            {
+                "name": "Andre Polykanine",
+                "email": "andre@oire.org",
+                "url": "https://github.com/oire"
+            }
+        ],
+        "description": "Parse, validate, manipulate, and display dates",
+        "homepage": "http://momentjs.com",
+        "keywords": [
+            "date",
+            "ender",
+            "format",
+            "i18n",
+            "l10n",
+            "moment",
+            "parse",
+            "time",
+            "validate"
+        ]
+    },
+    {
+        "name": "npm-asset/color-name",
+        "version": "1.1.4",
+        "version_normalized": "1.1.4.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz",
+            "reference": null,
+            "shasum": "c2a09a87acbde69543de6f63fa3995c826c536a2"
+        },
+        "time": "2018-09-21T10:48:56+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/colorjs/color-name/issues"
+            },
+            "npm-asset-main": "index.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+ssh://git@github.com/colorjs/color-name.git"
+            },
+            "npm-asset-scripts": {
+                "test": "node test.js"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "DY",
+                "email": "dfcreative@gmail.com"
+            }
+        ],
+        "description": "A list of color names and its values",
+        "homepage": "https://github.com/colorjs/color-name",
+        "keywords": [
+            "color",
+            "color-keyword",
+            "color-name",
+            "keyword"
+        ]
+    },
+    {
+        "name": "npm-asset/chartjs-color-string",
+        "version": "0.6.0",
+        "version_normalized": "0.6.0.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/chartjs-color-string/-/chartjs-color-string-0.6.0.tgz",
+            "reference": null,
+            "shasum": "1df096621c0e70720a64f4135ea171d051402f71"
+        },
+        "require": {
+            "npm-asset/color-name": ">=1.0.0,<2.0.0"
+        },
+        "time": "2019-03-07T10:05:16+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/chartjs/chartjs-color-string/issues"
+            },
+            "npm-asset-main": "./color-string",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/chartjs/chartjs-color-string.git"
+            },
+            "npm-asset-scripts": {
+                "test": "node test/basic.js"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Heather Arthur",
+                "email": "fayearthur@gmail.com"
+            }
+        ],
+        "description": "Parser and generator for CSS color strings",
+        "homepage": "https://github.com/chartjs/chartjs-color-string#readme",
+        "keywords": [
+            "color",
+            "colour",
+            "css",
+            "rgb"
+        ]
+    },
+    {
+        "name": "npm-asset/color-convert",
+        "version": "0.5.3",
+        "version_normalized": "0.5.3.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/color-convert/-/color-convert-0.5.3.tgz",
+            "reference": null,
+            "shasum": "bdb6c69ce660fadffe0b0007cc447e1b9f7282bd"
+        },
+        "time": "2015-06-02T04:46:06+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/harthur/color-convert/issues"
+            },
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+ssh://git@github.com/harthur/color-convert.git"
+            },
+            "npm-asset-scripts": {
+                "test": "node test/basic.js"
+            }
+        },
+        "installation-source": "dist",
+        "authors": [
+            {
+                "name": "Heather Arthur",
+                "email": "fayearthur@gmail.com"
+            }
+        ],
+        "description": "Plain color conversion functions",
+        "homepage": "https://github.com/harthur/color-convert#readme",
+        "keywords": [
+            "color",
+            "colour",
+            "rgb"
+        ]
+    },
+    {
+        "name": "npm-asset/chartjs-color",
+        "version": "2.3.0",
+        "version_normalized": "2.3.0.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/chartjs-color/-/chartjs-color-2.3.0.tgz",
+            "reference": null,
+            "shasum": "0e7e1e8dba37eae8415fd3db38bf572007dd958f"
+        },
+        "require": {
+            "npm-asset/chartjs-color-string": ">=0.6.0,<0.7.0",
+            "npm-asset/color-convert": ">=0.5.3,<0.6.0"
+        },
+        "time": "2019-03-07T10:39:03+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/chartjs/chartjs-color/issues"
+            },
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/chartjs/chartjs-color.git"
+            },
+            "npm-asset-scripts": {
+                "pretest": "xo",
+                "test": "mocha"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "description": "Color conversion and manipulation with CSS string support",
+        "homepage": "https://github.com/chartjs/chartjs-color#readme",
+        "keywords": [
+            "color",
+            "colour",
+            "css"
+        ]
+    },
+    {
+        "name": "npm-asset/chart.js",
+        "version": "2.8.0",
+        "version_normalized": "2.8.0.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/chart.js/-/chart.js-2.8.0.tgz",
+            "reference": null,
+            "shasum": "b703b10d0f4ec5079eaefdcd6ca32dc8f826e0e9"
+        },
+        "require": {
+            "npm-asset/chartjs-color": ">=2.1.0,<3.0.0",
+            "npm-asset/moment": ">=2.10.2,<3.0.0"
+        },
+        "time": "2019-03-14T13:08:34+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/chartjs/Chart.js/issues"
+            },
+            "npm-asset-main": "dist/Chart.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/chartjs/Chart.js.git"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "MIT"
+        ],
+        "description": "Simple HTML5 charts using the canvas element.",
+        "homepage": "https://www.chartjs.org",
+        "keywords": [
+            "canvas",
+            "charts",
+            "data",
+            "graphs",
+            "html5",
+            "responsive"
+        ]
+    },
+    {
+        "name": "npm-asset/bootstrap-datepicker",
+        "version": "1.9.0",
+        "version_normalized": "1.9.0.0",
+        "dist": {
+            "type": "tar",
+            "url": "https://registry.npmjs.org/bootstrap-datepicker/-/bootstrap-datepicker-1.9.0.tgz",
+            "reference": null,
+            "shasum": "e4bfce3fcce1967876b21dc6833ec5994aaed090"
+        },
+        "require": {
+            "npm-asset/jquery": ">=1.7.1,<4.0.0"
+        },
+        "time": "2019-05-20T19:24:32+00:00",
+        "type": "npm-asset-library",
+        "extra": {
+            "npm-asset-bugs": {
+                "url": "https://github.com/uxsolutions/bootstrap-datepicker/issues"
+            },
+            "npm-asset-main": "./dist/js/bootstrap-datepicker.js",
+            "npm-asset-directories": [],
+            "npm-asset-repository": {
+                "type": "git",
+                "url": "git+https://github.com/uxsolutions/bootstrap-datepicker.git"
+            },
+            "npm-asset-scripts": {
+                "test": "grunt test"
+            }
+        },
+        "installation-source": "dist",
+        "license": [
+            "Apache-2.0"
+        ],
+        "authors": [
+            {
+                "name": "Andrew Rowls",
+                "email": "eternicode@gmail.com"
+            }
+        ],
+        "description": "A datepicker for Bootstrap",
+        "homepage": "https://github.com/uxsolutions/bootstrap-datepicker",
+        "keywords": [
+            "bootstrap",
+            "datepicker"
+        ]
+    }
+]
