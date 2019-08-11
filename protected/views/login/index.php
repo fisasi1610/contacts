@@ -1,5 +1,6 @@
 <?php
 $errors = yii::app()->user->getFlash("errorLogin");
+$success = yii::app()->user->getFlash("success");
 ?>
 <div class="authentication">
   <div class="sign-in-2">
@@ -27,6 +28,12 @@ $errors = yii::app()->user->getFlash("errorLogin");
                             ]
                         ]);
                         ?>
+                        <?php if (!empty($success)) : ?>
+                          <div class="alert alert-success alert-white-alt rounded">
+                            <i class="fa fa-times-circle"></i>&nbsp;
+                            <strong><?= $success ?></strong>
+                          </div>
+                        <?php endif; ?>
                         <?php if (!empty($errors)) : ?>
                           <div class="alert alert-danger alert-white-alt rounded">
                             <i class="fa fa-times-circle"></i>&nbsp;
@@ -57,6 +64,7 @@ $errors = yii::app()->user->getFlash("errorLogin");
                           <button class="btn btn-info">Login</button>
                         </div>
                         <?php $this->endWidget(); ?>
+                        <span>No tiene cuenta? Regístrate <a href="<?= $this->createUrl("/signup") ?>">aquí</a></span>
                       </div>
                     </div>
                   </div>

@@ -6,13 +6,12 @@
  */
 return [
     /* Products */
-    'products'                               => 'product/overview/index',
-    'product/new'                            => 'product/manage/create',
-    'product/edit/<id:\d+>'                  => 'product/manage/update',
-    'product/remove/<id:\d+>'                => 'product/manage/delete',
+    'products'                               => 'site/products',
+    'product/<id:\d+>'                       => 'site/product',
     /* User */
     'changePassword'                         => 'user/password',
     /* Login */
+    'signup'                                 => 'login/signup',
     'signin'                                 => 'login/validate',
     'logout'                                 => 'login/logout',
     /* System */

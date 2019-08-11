@@ -49,7 +49,7 @@ class Auth extends Builder {
             'users' => ['@'],
         ],
         ['allow',
-            'controllers' => ['error', 'login'],
+            'controllers' => ['error', 'login','site'],
             'users'       => ['*'],
         ],
         ['deny',

@@ -1,7 +1,9 @@
 <?php
 PackagesAssets::registerCore();
 AppAssets::registerScript();
+LoginAssets::registerScript($this);
 Yii::app()->clientScript->registerModuleScript("app");
+Yii::app()->clientScript->registerModuleScript("login");
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,6 +18,9 @@ Yii::app()->clientScript->registerModuleScript("app");
     <!-- Favicon -->
     <link rel="shortcut icon" href="<?= Utils::host(Yii::app()->params["app-img-favicon"], true) ?>"/>
     <link rel="icon" type="image/x-icon" href="<?= Utils::host('favicon.ico', true) ?>" />
+
+    <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase-database.js"></script>
 
     <script type="text/javascript">
       var Request = {

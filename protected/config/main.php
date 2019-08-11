@@ -8,7 +8,7 @@ return [
     'basePath'          => dirname(__FILE__) . DIRECTORY_SEPARATOR . "..",
     'name'              => 'APPLICATION',
     'theme'             => 'espire',
-    'defaultController' => 'dashboard',
+    'defaultController' => 'site',
     'language'          => 'es',
     'sourceLanguage'    => 'es',
     'timeZone'          => 'America/Lima',

@@ -13,4 +13,13 @@ return [
     'dashboard' => [
         'defaultController' => "overview"
     ],
+    'setting' => [
+        'defaultController' => "overview"
+    ],
+    'product' => [
+        'defaultController' => "overview"
+    ],
+    'profile' => [
+        'defaultController' => "overview"
+    ],
 ];

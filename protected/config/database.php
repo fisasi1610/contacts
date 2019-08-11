@@ -5,8 +5,8 @@
  * @package APP\Config
  */
 return [
-    'connectionString' => 'mysql:host=localhost;dbname=autoprim_WPIYR',
-    'username'         => 'autoprim_fisasi',
+    'connectionString' => 'mysql:host=localhost;dbname=contacts',
+    'username'         => 'root',
     'password'         => 'f134679F',
     'charset'          => 'utf8',
 ];
