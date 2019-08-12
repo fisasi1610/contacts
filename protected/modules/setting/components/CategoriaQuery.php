@@ -21,7 +21,7 @@ class CategoriaQuery
         $command = Yii::app()->db->createCommand()
             ->select("c.id
               ,c.nombre")
-            ->from("c.categoria")
+            ->from("categoria c")
             ->where(" c.estado = 1
                 and upper(
                       concat(

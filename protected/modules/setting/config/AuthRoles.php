@@ -1,11 +1,17 @@
 <?php
-class AuthRoles {
+class AuthRoles
+{
 
     public static $Auth = [
 //        ['allow',
-//            'roles' => [],
-//            'users' => ['@'],
-//        ],
+        //            'roles' => [],
+        //            'users' => ['@'],
+        //        ],
+        ['allow',
+            'controllers' => ["setting/categoria"],
+            'users'       => ['@'],
+        ],
+
     ];
 
 }

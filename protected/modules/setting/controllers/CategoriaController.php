@@ -19,7 +19,7 @@ class CategoriaController extends Auth
     public function actionIndex()
     {
         $this->csrf_token    = true;
-        $this->current_title = "Listado";
+        $this->current_title = "Categoría";
         $this->render('index');
     }
 
@@ -36,20 +36,74 @@ class CategoriaController extends Auth
             $params['search'] = Yii::app()->request->getQuery("search", "");
             $params['order']  = Yii::app()->request->getQuery("order", "desc");
 
-            $data = UsersUtil::getAllUsuarios($params);
+            $data = CategoriaUtil::getAllCategorias($params);
 
-            Response::JSON(false, 200, "Usuarios obtenidos exitosamente", $data);
+            Response::JSON(false, 200, "Categorías obtenidas exitosamente", $data);
         } catch (Exception $exc) {
             Response::JSON(true, $exc->getCode(), $exc->getMessage());
         }
     }
 
     /**
-     * listPersonal
+     * update
      */
+    public function actionUpdate()
+    {
+        try {
+            if (!Yii::app()->request->isAjaxRequest) {
+                throw new Exception("Acceso no autorizado", 403);
+            }
+
+            $post = Yii::app()->request->getPost("Categoria");
+
+            $model            = CategoriaModel::model()->findByPk($post['id']);
+            $model->attribute = $post;
+
+            if (!$modelUR->update()) {
+                throw new Exception(
+                    "Error al actualizar Categoría - " . Utils::handleErrorValidation($model), 900
+                );
+            }
+
+            $data['data'] = [];
+
+            Response::JSON(false, 200, "Categoría actualizado exitosamente", $data);
+        } catch (Exception $exc) {
+            Response::JSON(true, $exc->getCode(), $exc->getMessage());
+
+        }
+    }
 
     /**
-     * create
+     * delete
      */
+    public function actionDelete()
+    {
+        try {
+
+            //Console::debug(Yii::app()->request->isAjaxRequest, true);
+
+            if (!Yii::app()->request->isAjaxRequest) {
+                throw new Exception("Acceso no autorizado", 403);
+            }
+
+            $id = Yii::app()->request->getPost("id");
+
+            $model         = CategoriaModel::model()->findByPk($id);
+            $model->estado = 0;
+
+            if (!$model->update()) {
+                throw new Exception(
+                    "Error al eliminar Categoria - " . Utils::handleErrorValidation($model), 900
+                );
+            }
+
+            $data['data'] = $model->attributes;
+
+            Response::JSON(false, 200, "Categoria eliminado exitosamente", $data);
+        } catch (Exception $exc) {
+            Response::Error($exc);
+        }
+    }
 
 }

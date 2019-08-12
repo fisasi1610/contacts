@@ -28,7 +28,6 @@ Chtml::hiddenField('Categoria[id]', '', [
               <?=
 CHtml::textField("Categoria[nombre]", "", [
     'class'      => "form-control",
-    'disabled'   => true,
     'data-field' => 'nombre',
 ])
 ?>
